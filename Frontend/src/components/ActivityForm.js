@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useActivitiesContext } from "../hooks/useActivitiesContext";
 import { useAuthContext } from "../hooks/useAuthContext";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 
 const ActivityForm = () => {
   const { dispatch } = useActivitiesContext();
@@ -13,7 +13,7 @@ const ActivityForm = () => {
   const [steps, setSteps] = useState("");
   const [error, setError] = useState(null);
   const [emptyFields, setEmptyFields] = useState([]);
-
+  const navigate = useNavigate();
   const handleSubmit = async (e) => {
     e.preventDefault();
 
@@ -45,6 +45,7 @@ const ActivityForm = () => {
       setError(null);
       setEmptyFields([]);
       dispatch({ type: "CREATE_ACTIVITY", payload: json });
+      navigate("/");
     }
   };
 

@@ -25,10 +25,9 @@ const Home = () => {
     if (user) {
       fetchPhases();
     }
-  }, [dispatch, user]);
+  }, [dispatch, user, phases]);
 
   return (
-    
     <div className="home">
       <div className="workouts">
         {phases &&

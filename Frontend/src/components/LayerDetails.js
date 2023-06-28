@@ -12,8 +12,7 @@ const LayerDetails = ({ layer }) => {
     if (!user) {
       return;
     }
-    console.log("layer",layer); 
-
+    console.log("layer", layer);
 
     const response = await fetch("/api/layer/" + layer._id, {
       method: "DELETE",
@@ -27,13 +26,12 @@ const LayerDetails = ({ layer }) => {
       dispatch({ type: "DELETE_LAYERS", payload: json });
     }
   };
-//console.log("layer",layer); 
   return (
     <div className="phase-details">
       <div className="phaseHead">
-      <h4>{layer.title}</h4>
+        <h4>{layer.title}</h4>
         <div className="phaseActivities">
-          {layer.sublayers.map((sublayer) => {
+          {layer.sublayer.map((sublayer) => {
             return (
               <Link
                 key={sublayer._id}
@@ -50,7 +48,7 @@ const LayerDetails = ({ layer }) => {
         </p>
       </div>
       <div className="phaseActions">
-        <Link to={`/addActivity/${layer._id}`}>
+        <Link to={`/addSublayer/${layer._id}`}>
           <span className="material-symbols-outlined">add</span>
         </Link>
         <span className="material-symbols-outlined" onClick={handleClick}>

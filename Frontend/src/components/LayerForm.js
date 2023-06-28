@@ -52,7 +52,6 @@ const LayerForm = () => {
         onChange={(e) => setTitle(e.target.value)}
         value={title}
         className={emptyFields.includes("title") ? "error" : ""}
-        
       />
 
       <button>Add Layer</button>

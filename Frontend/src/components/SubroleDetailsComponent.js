@@ -6,7 +6,7 @@ const SubroleDetails = ({ subrole }) => {
   
     return (
       <div className="activity-details">
-        <h1>Suborl Details</h1>
+        <h1>Subrole Details</h1>
         <h3>Role ID</h3>
         <span>{subrole.roleId}</span>
         <h3>name</h3>

@@ -9,11 +9,12 @@ import Navbar from "./components/Navbar";
 import AddActivity from "./pages/addActivity";
 import ActivityDetails from "./pages/activityDetails";
 import Cadreanalyse from "./pages/Cadreanalyse";
-import AddSublayer from "./pages/addSublayer"
+import AddSublayer from "./pages/addSublayer";
+import AddSubrole from "./pages/addSubrole";
 import SublayerDetails from "./pages/sublayerDetails";
 import Ressources from "./pages/Ressources";
-
-
+import Role from "./pages/Role";
+import SubroleDetails from "./pages/subroleDetails";
 
 function App() {
   const { user } = useAuthContext();
@@ -28,8 +29,7 @@ function App() {
               path="/"
               element={user ? <Home /> : <Navigate to="/login" />}
             />
-            
-          
+
             <Route
               path="/Ressources"
               element={user ? <Ressources /> : <Navigate to="/Ressources" />}
@@ -47,11 +47,25 @@ function App() {
               element={user ? <Cadreanalyse /> : <Navigate to="/login" />}
             />
             <Route
+              path="/Role"
+              element={user ? <Role /> : <Navigate to="/login" />}
+            />
+
+            <Route
+              path="/addRole/:id"
+              element={user ? <AddSubrole /> : <Navigate to="/login" />}
+            />
+
+            <Route
+              path="/subroleDetails/:id"
+              element={user ? <SubroleDetails /> : <Navigate to="/login" />}
+            />
+
+            <Route
               path="/Ressources"
               element={user ? <Ressources /> : <Navigate to="/login" />}
             />
 
-            
             <Route
               path="/addSublayer/:id"
               element={user ? <AddSublayer /> : <Navigate to="/login" />}

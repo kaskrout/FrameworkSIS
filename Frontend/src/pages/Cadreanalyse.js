@@ -4,12 +4,12 @@ import { useAuthContext } from "../hooks/useAuthContext";
 
 // components
 import LayerDetails from "../components/LayerDetails";
+import LayerForm from "../components/LayerForm";
 //import LayerForm from "../components/layerForm";
 
 const Cadreanalyse = () => {
   const { layers, dispatch } = useLayersContext();
   const { user } = useAuthContext();
-  
 
   useEffect(() => {
     const fetchlayers = async () => {
@@ -17,7 +17,6 @@ const Cadreanalyse = () => {
         headers: { Authorization: `Bearer ${user.token}` },
       });
       const json = await response.json();
-
       if (response.ok) {
         dispatch({ type: "SET_LAYERS", payload: json });
       }
@@ -26,8 +25,7 @@ const Cadreanalyse = () => {
     if (user) {
       fetchlayers();
     }
-  }, [dispatch, user]);
-  
+  }, [dispatch, user, layers]);
 
   return (
     <div className="home">
@@ -35,7 +33,7 @@ const Cadreanalyse = () => {
         {layers &&
           layers.map((layer) => <LayerDetails key={layer._id} layer={layer} />)}
       </div>
-      <LayerDetails />
+      <LayerForm />
     </div>
   );
 };

@@ -43,7 +43,7 @@ const getSubrole = async (req, res) => {
 const createSubrole = async (req, res) => {
   const { roleId, subroleName, details } = req.body;
   // await user.updateOne({ $push: { followers: req.body.userId } });
-  const phase = await Phase.findById(roleId);
+  const role = await Role.findById(roleId);
   let emptyFields = [];
 
   if (!subroleName) {
@@ -68,7 +68,7 @@ const createSubrole = async (req, res) => {
       subroleName,
       details,
     });
-    await role.updateOne({ $push: { subroles: subrole } });
+    await role.updateOne({ $push: { Subroles: subrole } });
 
     res.status(200).json(subrole);
   } catch (error) {

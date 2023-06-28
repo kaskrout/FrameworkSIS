@@ -22,7 +22,7 @@ const RoleDetails = ({ role }) => {
     const json = await response.json();
 
     if (response.ok) {
-      dispatch({ type: "DELETE_Role", payload: json });
+      dispatch({ type: "DELETE_ROLE", payload: json });
     }
   };
 
@@ -32,7 +32,7 @@ const RoleDetails = ({ role }) => {
       <div className="phaseHead">
         <h4>{role.RoleName}</h4>
         <div className="phaseActivities">
-          {role.subroles.map((subrole) => {
+          {role.Subroles.map((subrole) => {
             return (
               <Link
                 key={subrole._id}

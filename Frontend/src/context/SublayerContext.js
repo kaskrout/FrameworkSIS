@@ -14,9 +14,7 @@ export const SublayersReducer = (state, action) => {
       };
     case "DELETE_SUBLAYERS":
       return {
-        sublayers: state.sublayers.filter(
-          (w) => w._id !== action.payload._id
-        ),
+        sublayers: state.sublayers.filter((w) => w._id !== action.payload._id),
       };
     default:
       return state;
@@ -25,7 +23,7 @@ export const SublayersReducer = (state, action) => {
 
 export const SublayersContextProvider = ({ children }) => {
   const [state, dispatch] = useReducer(SublayersReducer, {
-    sublayers: null,
+    sublayers: [],
   });
 
   return (

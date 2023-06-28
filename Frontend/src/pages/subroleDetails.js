@@ -27,7 +27,7 @@ const SubroleDetails = () => {
 
   return (
     <div className="workouts">
-      {subroles && <SubroleDetailsComponent activity={subroles} />}
+      {subroles && <SubroleDetailsComponent subrole={subroles} />}
     </div>
   );
 };

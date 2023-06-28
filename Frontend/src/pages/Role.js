@@ -25,10 +25,9 @@ const Role = () => {
     if (user) {
       fetchRoles();
     }
-  }, [dispatch, user]);
+  }, [dispatch, user, roles]);
 
   return (
-    
     <div className="home">
       <div className="workouts">
         {roles &&

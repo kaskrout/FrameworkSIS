@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useActivitiesContext } from "../hooks/useActivitiesContext";
 import { useAuthContext } from "../hooks/useAuthContext";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 
 const SubroleForm = () => {
   const { dispatch } = useActivitiesContext();
@@ -12,6 +12,7 @@ const SubroleForm = () => {
   const [details, setdetails] = useState("");
   const [error, setError] = useState(null);
   const [emptyFields, setEmptyFields] = useState([]);
+  const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -42,7 +43,8 @@ const SubroleForm = () => {
       setdetails("");
       setError(null);
       setEmptyFields([]);
-      dispatch({ type: "CREATE_SUBROLE", payload: json });
+      dispatch({ type: "CREATE_SUBROLES", payload: json });
+      navigate("/Role");
     }
   };
 
@@ -60,7 +62,7 @@ const SubroleForm = () => {
         value={subroleName}
         className={emptyFields.includes("title") ? "error" : ""}
       />
-      <label>Activity Description:</label>
+      <label>Subrole Details:</label>
       <textarea
         onChange={(e) => setdetails(e.target.value)}
         cols="30"
@@ -68,7 +70,6 @@ const SubroleForm = () => {
         value={details}
         className={emptyFields.includes("details") ? "error" : ""}
       ></textarea>
-      
 
       <button>Add subrole</button>
       {error && <div className="error">{error}</div>}

@@ -10,24 +10,24 @@ const SublayerDetails = () => {
   const { id } = useParams();
   useEffect(() => {
     const fetchSublayer = async () => {
-      const response = await fetch(`/api/sublayers/${id}`, {
+      const response = await fetch(`/api/sublayer/${id}`, {
         headers: { Authorization: `Bearer ${user.token}` },
       });
       const json = await response.json();
 
       if (response.ok) {
-        dispatch({ type: "SET_ACTIVITIES", payload: json });
+        dispatch({ type: "SET_SUBLAYERS", payload: json });
       }
     };
 
     if (user) {
-        fetchSublayer();
+      fetchSublayer();
     }
   }, [dispatch, user, id, sublayers]);
 
   return (
     <div className="workouts">
-      {sublayers && <SublayerDetailsComponent activity={sublayers} />}
+      {sublayers && <SublayerDetailsComponent sublayer={sublayers} />}
     </div>
   );
 };

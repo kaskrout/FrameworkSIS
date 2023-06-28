@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useSublayersContext } from "../hooks/useSublayerContext";
 import { useAuthContext } from "../hooks/useAuthContext";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 
 const SublayerForm = () => {
   const { dispatch } = useSublayersContext();
@@ -13,7 +13,7 @@ const SublayerForm = () => {
   const [questions, setquestions] = useState("");
   const [error, setError] = useState(null);
   const [emptyFields, setEmptyFields] = useState([]);
-
+const navigate = useNavigate();
   const handleSubmit = async (e) => {
     e.preventDefault();
 
@@ -44,7 +44,8 @@ const SublayerForm = () => {
       setquestions("");
       setError(null);
       setEmptyFields([]);
-      dispatch({ type: "CREATE_SUBLAYER", payload: json });
+      dispatch({ type: "CREATE_SUBLAYERS", payload: json });
+      navigate("/Cadreanalyse");
     }
   };
 

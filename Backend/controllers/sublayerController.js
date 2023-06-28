@@ -72,7 +72,7 @@ const createsublayer = async (req, res) => {
       Details,
       questions,
     });
-    await layer.updateOne({ $push: { sublayers: sublayer } });
+    await layer.updateOne({ $push: { sublayer: sublayer } });
 
     res.status(200).json(sublayer);
   } catch (error) {
