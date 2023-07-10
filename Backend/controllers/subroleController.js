@@ -130,11 +130,11 @@ const updateSubrole = async (req, res) => {
     return res.status(404).json({ error: "No such Role" });
   }
 
-  const updatedSubroles = role.subroles.map(
+  const updatedSubroles = role.Subroles.map(
     (act) => (act._id.toString() === id ? { ...subrole.toObject() } : act) // Merge the original activity fields back into the updated activity
   );
 
-  role.subroles = updatedSubroles;
+  role.Subroles = updatedSubroles;
   await role.save();
 
   res.status(200).json({ subrole, role });

@@ -134,12 +134,12 @@ const updatesublayer = async (req, res) => {
     return res.status(404).json({ error: "No such Layer" });
   }
 
-  if (layer.sublayers && Array.isArray(layer.sublayers)) {
-    const updatedSublayers = layer.sublayers.map((act) =>
+  if (layer.sublayer && Array.isArray(layer.sublayer)) {
+    const updatedSublayers = layer.sublayer.map((act) =>
       act._id.toString() === id ? { ...sublayer.toObject() } : act
     );
 
-    layer.sublayers = updatedSublayers;
+    layer.sublayer = updatedSublayers;
     await layer.save();
   }
 
