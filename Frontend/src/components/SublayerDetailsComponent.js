@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { useAuthContext } from "../hooks/useAuthContext";
+import { useNavigate } from "react-router-dom";
 
 const SublayeryDetailsComponent = ({ sublayer }) => {
   const [fieldsDisabled, setFieldsDisabled] = useState(true);
@@ -7,6 +8,7 @@ const SublayeryDetailsComponent = ({ sublayer }) => {
   const [Details, setDetails] = useState(sublayer.Details);
   const [questions, setquestions] = useState(sublayer.questions);
   const { user } = useAuthContext();
+  const navigate = useNavigate();
 
   const updateFields = async (e) => {
     e.preventDefault();
@@ -22,10 +24,11 @@ const SublayeryDetailsComponent = ({ sublayer }) => {
       });
       if (response.ok) {
         // Update was successful
-        console.log("Update successful!");
+        alert("Update successful!");
+        navigate("/Cadreanalyse");
       } else {
         // Update failed
-        console.error("Update failed!");
+        alert("Update failed!");
       }
     } catch (error) {
       console.error("An error occurred:", error);

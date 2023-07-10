@@ -1,11 +1,13 @@
 import React, { useState } from "react";
 import { useAuthContext } from "../hooks/useAuthContext";
+import { useNavigate } from "react-router-dom";
 
 const SubroleDetails = ({ subrole }) => {
   const [fieldsDisabled, setFieldsDisabled] = useState(true);
   const [subroleName, setsubroleName] = useState(subrole.subroleName);
   const [details, setdetails] = useState(subrole.details);
   const { user } = useAuthContext();
+  const navigate = useNavigate();
 
   const updateFields = async (e) => {
     e.preventDefault();
@@ -21,10 +23,11 @@ const SubroleDetails = ({ subrole }) => {
       });
       if (response.ok) {
         // Update was successful
-        console.log("Update successful!");
+        alert("Update successful!");
+        navigate("/Role");
       } else {
         // Update failed
-        console.error("Update failed!");
+        alert("Update failed!");
       }
     } catch (error) {
       console.error("An error occurred:", error);

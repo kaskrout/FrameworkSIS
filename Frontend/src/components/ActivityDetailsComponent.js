@@ -1,11 +1,14 @@
 import React, { useState } from "react";
 import { useAuthContext } from "../hooks/useAuthContext";
+import { useNavigate } from "react-router-dom";
 
 const ActivityDetailsComponent = ({ activity }) => {
   const [fieldsDisabled, setFieldsDisabled] = useState(true);
   const [title, setTitle] = useState(activity.title);
   const [description, setDescription] = useState(activity.description);
   const [steps, setSteps] = useState(activity.steps);
+  const navigate = useNavigate();
+
   const { user } = useAuthContext();
 
   const updateFields = async (e) => {
@@ -22,10 +25,11 @@ const ActivityDetailsComponent = ({ activity }) => {
       });
       if (response.ok) {
         // Update was successful
-        console.log("Update successful!");
+        alert("Update successful!");
+        navigate("/");
       } else {
         // Update failed
-        console.error("Update failed!");
+        alert("Update failed!");
       }
     } catch (error) {
       console.error("An error occurred:", error);
