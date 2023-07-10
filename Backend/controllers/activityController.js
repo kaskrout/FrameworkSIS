@@ -1,4 +1,4 @@
-  const Activity = require("../models/activityModel");
+const Activity = require("../models/activityModel");
 const Phase = require("../models/phaseModel");
 const mongoose = require("mongoose");
 
@@ -105,18 +105,46 @@ const updateActivity = async (req, res) => {
     return res.status(404).json({ error: "No such Activity" });
   }
 
+  const { title, description, steps } = req.body;
+
+  const updatedFields = {};
+  if (title) {
+    updatedFields.title = title;
+  }
+  if (description) {
+    updatedFields.description = description;
+  }
+  if (steps) {
+    updatedFields.steps = steps;
+  }
+
   const activity = await Activity.findOneAndUpdate(
     { _id: id },
     {
-      ...req.body,
-    }
+      $set: updatedFields,
+    },
+    { new: true }
   );
 
   if (!activity) {
     return res.status(400).json({ error: "No such Activity" });
   }
 
-  res.status(200).json(activity);
+  // Find the corresponding phase and update the activity in its activities array
+  const phase = await Phase.findOne({ _id: activity.phaseId });
+
+  if (!phase) {
+    return res.status(404).json({ error: "No such Phase" });
+  }
+
+  const updatedActivities = phase.activities.map(
+    (act) => (act._id.toString() === id ? { ...activity.toObject() } : act) // Merge the original activity fields back into the updated activity
+  );
+
+  phase.activities = updatedActivities;
+  await phase.save();
+
+  res.status(200).json({ activity, phase });
 };
 
 module.exports = {

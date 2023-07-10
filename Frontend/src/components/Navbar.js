@@ -13,9 +13,7 @@ const Navbar = () => {
   return (
     <header>
       <div className="container">
-        <Link to="/">
-          <h1>Framework</h1>
-        </Link>
+        
         <Link to="/">
           <h1>Methodology</h1>
         </Link>
@@ -27,7 +25,7 @@ const Navbar = () => {
           <h1>Role et artefact</h1>
         </Link>
         <Link to="/Ressources">
-          <h1>Users</h1>
+          <h1>Ressources</h1>
         </Link>
         <nav>
           {user && (

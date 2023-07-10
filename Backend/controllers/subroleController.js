@@ -9,7 +9,7 @@ const getSubroles = async (req, res) => {
   res.status(200).json(Subroles);
 };
 
-// get Subroles by phaseId
+// get Subroles by roleeId
 const getSubrolesByRoleId = async (req, res) => {
   try {
     const role = await Role.findById(req.params.roleId);
@@ -39,7 +39,7 @@ const getSubrole = async (req, res) => {
   res.status(200).json(subrole);
 };
 
-// create new activity
+// create new subrole
 const createSubrole = async (req, res) => {
   const { roleId, subroleName, details } = req.body;
   // await user.updateOne({ $push: { followers: req.body.userId } });
@@ -76,7 +76,7 @@ const createSubrole = async (req, res) => {
   }
 };
 
-// delete a activity
+// delete a subrole
 const deleteSubrole = async (req, res) => {
   const { id } = req.params;
 
@@ -93,7 +93,7 @@ const deleteSubrole = async (req, res) => {
   res.status(200).json(subrole);
 };
 
-// update a activity
+// update a subrole
 const updateSubrole = async (req, res) => {
   const { id } = req.params;
 
@@ -101,18 +101,43 @@ const updateSubrole = async (req, res) => {
     return res.status(404).json({ error: "No such Subrole" });
   }
 
+  const { subroleName, details } = req.body;
+
+  const updatedFields = {};
+  if (subroleName) {
+    updatedFields.subroleName = subroleName;
+  }
+  if (details) {
+    updatedFields.details = details;
+  }
+
   const subrole = await Subrole.findOneAndUpdate(
     { _id: id },
     {
-      ...req.body,
-    }
+      $set: updatedFields,
+    },
+    { new: true }
   );
 
   if (!subrole) {
     return res.status(400).json({ error: "No such Subrole" });
   }
 
-  res.status(200).json(subrole);
+  // Find the corresponding role and update the subrole in its activities array
+  const role = await Role.findOne({ _id: subrole.roleId });
+
+  if (!role) {
+    return res.status(404).json({ error: "No such Role" });
+  }
+
+  const updatedSubroles = role.subroles.map(
+    (act) => (act._id.toString() === id ? { ...subrole.toObject() } : act) // Merge the original activity fields back into the updated activity
+  );
+
+  role.subroles = updatedSubroles;
+  await role.save();
+
+  res.status(200).json({ subrole, role });
 };
 
 module.exports = {

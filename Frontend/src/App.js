@@ -26,11 +26,6 @@ function App() {
         <div className="pages">
           <Routes>
             <Route
-              path="/"
-              element={user ? <Home /> : <Navigate to="/login" />}
-            />
-
-            <Route
               path="/Ressources"
               element={user ? <Ressources /> : <Navigate to="/Ressources" />}
             />
@@ -81,6 +76,10 @@ function App() {
             <Route
               path="/signup"
               element={!user ? <Signup /> : <Navigate to="/" />}
+            />
+            <Route
+              path="/"
+              element={user ? <Home /> : <Navigate to="/login" />}
             />
           </Routes>
         </div>

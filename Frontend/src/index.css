@@ -147,7 +147,7 @@ nav button {
   border: 2px solid var(--primary);
   padding: 6px 10px;
   border-radius: 4px;
-  font-family: "Poppins";
+  font-family: "lato";
   cursor: pointer;
   font-size: 1em;
 }
@@ -158,6 +158,75 @@ form.login {
   max-width: 400px;
   margin: 40px auto;
   padding: 20px;
-  background: #fff;
+  background: #ffcc02;
+  background-image: url("https://wallpaper.dog/large/5518945.jpg");
   border-radius: 4px;
+  color: #f3df00;
+}
+
+.updateButtons {
+  text-align: center;
+  padding: 10px;
+  gap: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.enable,
+.update {
+  padding: 10px;
+  border-radius: 15px;
+  border: none;
+  cursor: pointer;
+}
+
+.enable {
+  background-color: #ffcc02;
+}
+
+.update {
+  background-color: #1aac83;
+  color: white;
+}
+
+.enable:hover {
+  background-color: #e6b800;
+}
+
+.update:hover {
+  background-color: #15a27a;
+}
+
+.cardsContainer {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+.file-card {
+  border: 1px solid black;
+  padding: 20px;
+  border-radius: 15px;
+  width: 150px;
+  height: 150px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  flex-direction: column;
+}
+
+.file-card:hover {
+  background-color: lightgrey;
+}
+
+.fileIcon {
+  width: 100px;
+  height: 100px;
+  object-fit: cover;
+}
+
+.fileName {
+  font-size: 12px;
+  text-align: center;
 }

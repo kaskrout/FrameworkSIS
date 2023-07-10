@@ -12,7 +12,7 @@ const getsublayers = async (req, res) => {
 // get sublayers by layerId
 const getsublayerBylayerId = async (req, res) => {
   try {
-    const layer = await Layer.findById(req.params.phaseId);
+    const layer = await Layer.findById(req.params.layerId);
     const Sublayers = await Sublayer.find({ layerId: layer._id }).sort({
       createdAt: -1,
     });
@@ -97,7 +97,6 @@ const deletesublayer = async (req, res) => {
   res.status(200).json(sublayer);
 };
 
-// update a sublayer
 const updatesublayer = async (req, res) => {
   const { id } = req.params;
 
@@ -105,18 +104,46 @@ const updatesublayer = async (req, res) => {
     return res.status(404).json({ error: "No such sublayer" });
   }
 
-  const sublayer = await sublayer.findOneAndUpdate(
+  const { title, Details, questions } = req.body;
+
+  const updatedFields = {};
+  if (title) {
+    updatedFields.title = title;
+  }
+  if (Details) {
+    updatedFields.Details = Details;
+  }
+  if (questions) {
+    updatedFields.questions = questions;
+  }
+
+  const sublayer = await Sublayer.findOneAndUpdate(
     { _id: id },
-    {
-      ...req.body,
-    }
+    { $set: updatedFields },
+    { new: true }
   );
 
   if (!sublayer) {
-    return res.status(400).json({ error: "No such sublayer" });
+    return res.status(400).json({ error: "No such Sublayer" });
   }
 
-  res.status(200).json(sublayer);
+  // Find the corresponding layer and update the sublayer in its sublayers array
+  const layer = await Layer.findOne({ _id: sublayer.layerId });
+
+  if (!layer) {
+    return res.status(404).json({ error: "No such Layer" });
+  }
+
+  if (layer.sublayers && Array.isArray(layer.sublayers)) {
+    const updatedSublayers = layer.sublayers.map((act) =>
+      act._id.toString() === id ? { ...sublayer.toObject() } : act
+    );
+
+    layer.sublayers = updatedSublayers;
+    await layer.save();
+  }
+
+  res.status(200).json({ sublayer, layer });
 };
 
 module.exports = {

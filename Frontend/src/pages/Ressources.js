@@ -1,8 +1,8 @@
-import UserDetails from "../components/UserDetails";
+import Resources from "../components/Resources";
 const Users = () => {
   return (
     <div className="workouts">
-      <UserDetails />
+      <Resources />
     </div>
   );
 };
