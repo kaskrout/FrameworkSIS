@@ -30,6 +30,14 @@ const PhaseDetails = ({ phase }) => {
     
     <div className="phase-details">
       <div className="phaseHead">
+      <div className="phaseActions">
+        <Link to={`/addActivity/${phase._id}`}>
+          <span className="material-symbols-outlined">add</span>
+        </Link>
+        <span className="material-symbols-outlined" onClick={handleClick}>
+          delete
+        </span>
+      </div>
         <h4>{phase.title}</h4>
         <div className="phaseActivities">
           {phase.activities.map((activity) => {
@@ -48,14 +56,7 @@ const PhaseDetails = ({ phase }) => {
           {formatDistanceToNow(new Date(phase.createdAt), { addSuffix: true })}
         </p>
       </div>
-      <div className="phaseActions">
-        <Link to={`/addActivity/${phase._id}`}>
-          <span className="material-symbols-outlined">add</span>
-        </Link>
-        <span className="material-symbols-outlined" onClick={handleClick}>
-          delete
-        </span>
-      </div>
+      
     </div>
   );
 };
